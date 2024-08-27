@@ -1,15 +1,19 @@
 "use client";
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type UseInput = {
   value: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg?: string;
+  infoMsg?: string;
 };
 
 export const useInput = (
   initialValue?: string | number,
-  validator?: (value: string | number) => boolean
+  validator?: (value: string | number) => boolean,
+  errorMsg?: string,
+  infoMsg?: string
 ): UseInput => {
   const [value, setValue] = useState<string | number>(initialValue || "");
 
@@ -31,5 +35,7 @@ export const useInput = (
   return {
     value,
     onChange,
+    errorMsg,
+    infoMsg,
   };
 };
