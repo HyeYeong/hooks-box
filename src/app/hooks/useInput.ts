@@ -5,15 +5,11 @@ import { ChangeEvent, useState } from "react";
 type UseInput = {
   value: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  errorMsg?: string;
-  infoMsg?: string;
 };
 
 export const useInput = (
   initialValue?: string | number,
-  validator?: (value: string | number) => boolean,
-  errorMsg?: string,
-  infoMsg?: string
+  validator?: (value: string | number) => boolean
 ): UseInput => {
   const [value, setValue] = useState<string | number>(initialValue || "");
 
@@ -35,7 +31,5 @@ export const useInput = (
   return {
     value,
     onChange,
-    errorMsg,
-    infoMsg,
   };
 };
