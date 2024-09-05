@@ -41,7 +41,6 @@ export const HookTest = () => {
       </section>
       <section>
         <h2>hook3. useClick</h2>
-        <button ref={FocusElement}>say hello on console</button>
       </section>
     </main>
   );
