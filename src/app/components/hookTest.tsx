@@ -1,11 +1,13 @@
 "use client";
 import { useInput } from "@/app/hooks/useInput";
 import { CurrentItem, useTabs } from "@/app/hooks/useTabs";
-import { useClick } from "../hooks/useClick";
+import { useClick } from "@/app/hooks/useClick";
+import { useGithubRepos } from "@/app/hooks/useGetGithubRepos";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
   const data = useInput("input text", maxLength);
+  const { loginData, loading, error } = useGithubRepos("HyeYeong");
   const contents: CurrentItem[] = [
     { tab: "section 1", content: "I am the content of the section 1" },
     { tab: "section 2", content: "I am the content of the section 2" },
@@ -16,8 +18,38 @@ export const HookTest = () => {
   const sayHello = () => console.log("sayhello");
   const FocusElement = useClick(sayHello);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <main>
+      <section>
+        <h2>profile</h2>
+        {loginData && (
+          <ul>
+            <li className="profile-img">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={loginData.user.avatar_url || ""} alt="avatar_url" />
+            </li>
+            <li>NAME: {loginData.user.name}</li>
+            <li>LOCATION: {loginData.user.location}</li>
+            {loginData.user.repositories.nodes && (
+              <li>
+                REPOSITORIES({loginData.user.repositories.totalCount}):
+                {loginData.user.repositories.nodes.map((node, index) => (
+                  <span className="repo-name" key={index}>
+                    {node.name}
+                  </span>
+                ))}
+              </li>
+            )}
+            <br />
+            <li>by. GraphQL Data - github my repo</li>
+          </ul>
+        )}
+      </section>
+      <hr />
+      <hr />
       <h1>hooks-box</h1>
       {/* hook1. useInput */}
       <section>
@@ -39,9 +71,8 @@ export const HookTest = () => {
           <p>{tabHook.currentItem.content}</p>
         </div>
       </section>
-      <section>
-        <h2>hook3. useClick</h2>
-      </section>
+
+      <hr />
     </main>
   );
 };

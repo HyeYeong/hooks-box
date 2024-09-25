@@ -46,3 +46,22 @@ button:hover {
 .c-input-info {
   font-size: 12px;
 }
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 10px 0;
+}
+
+.profile-img img { 
+  width: 100%;
+}
+
+.repo-name {
+  padding-right: 10px;
+  display: inline-block;
+  font-size: 12px;
+  color: #3e3e3e
+}
