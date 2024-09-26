@@ -32,14 +32,14 @@ interface RepoData {
 }
 
 export const useGithubRepos = (login: string) => {
-  const [loginData, setLoginData] = useState<RepoData | null | unknown>(null);
+  const [loginData, setLoginData] = useState<RepoData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await client.request(query, { login });
+        const result = await client.request<RepoData>(query, { login });
         setLoginData(result);
       } catch (err) {
         setError(err as Error);
