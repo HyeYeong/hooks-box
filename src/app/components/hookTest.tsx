@@ -3,6 +3,7 @@ import { useInput } from "@/app/hooks/useInput";
 import { CurrentItem, useTabs } from "@/app/hooks/useTabs";
 import { useClick } from "@/app/hooks/useClick";
 import { useGithubRepos } from "@/app/hooks/useGetGithubRepos";
+import { SyncLoader } from "react-spinners";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -17,8 +18,12 @@ export const HookTest = () => {
   const tabHook = useTabs(0, contents);
   const sayHello = () => console.log("sayhello");
   const FocusElement = useClick(sayHello);
-
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <section>
+        <SyncLoader color="#4D607B" />
+      </section>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   return (
