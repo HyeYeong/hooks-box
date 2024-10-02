@@ -4,6 +4,7 @@ import { CurrentItem, useTabs } from "@/app/hooks/useTabs";
 import { useClick } from "@/app/hooks/useClick";
 import { useGithubRepos } from "@/app/hooks/useGetGithubRepos";
 import { SyncLoader } from "react-spinners";
+import { useConfirm } from "@/app/hooks/useConfirm";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -18,6 +19,9 @@ export const HookTest = () => {
   const tabHook = useTabs(0, contents);
   const sayHello = () => console.log("sayhello");
   const { element } = useClick(sayHello);
+  const { confirmAction } = useConfirm("are you sure?", () =>
+    console.log("deleted!!")
+  );
 
   if (loading)
     return (
@@ -77,10 +81,17 @@ export const HookTest = () => {
           <p>{tabHook.currentItem.content}</p>
         </div>
       </section>
-      {/* hooke. useClick */}
+      {/* hook3. useClick */}
       <section>
         <h2>hook3. useClick using Ref</h2>
         <button ref={element}>console hello button</button>
+      </section>
+      {/* hook4. useConfirm */}
+      <section>
+        <h2>hook4. useConfirm</h2>
+        <button onClick={confirmAction}>
+          delete the world?(show you only text)
+        </button>
       </section>
 
       <hr />
