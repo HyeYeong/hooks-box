@@ -3,11 +3,11 @@
 import { useRef, useEffect, MutableRefObject } from "react";
 
 type UseClick = {
-  element: MutableRefObject<HTMLElement | null>;
+  element: MutableRefObject<HTMLButtonElement | null>;
 };
 
 export const useClick = (onClick: (event: MouseEvent) => void): UseClick => {
-  const element = useRef<HTMLElement | null>(null);
+  const element = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const currentElement = element.current;

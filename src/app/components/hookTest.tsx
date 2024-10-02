@@ -17,7 +17,8 @@ export const HookTest = () => {
 
   const tabHook = useTabs(0, contents);
   const sayHello = () => console.log("sayhello");
-  const FocusElement = useClick(sayHello);
+  const { element } = useClick(sayHello);
+
   if (loading)
     return (
       <section>
@@ -75,6 +76,11 @@ export const HookTest = () => {
           <h3>{tabHook.currentItem.tab}</h3>
           <p>{tabHook.currentItem.content}</p>
         </div>
+      </section>
+      {/* hooke. useClick */}
+      <section>
+        <h2>hook3. useClick using Ref</h2>
+        <button ref={element}>console hello button</button>
       </section>
 
       <hr />
