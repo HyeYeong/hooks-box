@@ -8,6 +8,8 @@ import { useConfirm } from "@/app/hooks/useConfirm";
 import { MESSAGE } from "@/app/enums/text";
 import { usePreventLeave } from "@/app/hooks/usePreventLeave";
 import { useBeforeLeave } from "@/app/hooks/useBeforeLeave";
+import { useFadeIn } from "@/app/hooks/useFadeIn";
+import { useNetwork } from "@/app/hooks/useNetwork";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -30,6 +32,11 @@ export const HookTest = () => {
     console.log(MESSAGE.Cancel);
   };
   const confirmAction = useConfirm(MESSAGE.Question, confirmFunc, abortFunc);
+  const fadeInEl2scnd = useFadeIn(2);
+  const networkStatueEvent = (online: boolean) => {
+    console.log(online ? "Online" : "Offline");
+  };
+  const { netWorkStatus } = useNetwork(networkStatueEvent);
 
   // useBeforeLeave(() => {});
 
@@ -43,6 +50,11 @@ export const HookTest = () => {
 
   return (
     <main>
+      <section>
+        <span className={`c-network-label ${!netWorkStatus && "bg-danger"}`}>
+          {netWorkStatus ? "Online" : "Offline"}
+        </span>
+      </section>
       <section>
         <h2>profile</h2>
         {loginData && (
@@ -109,6 +121,13 @@ export const HookTest = () => {
         <p>If you click this button↓</p>
         <button onClick={enablePrevent}>you can protect this window</button>
         <button onClick={disablePrevent}>you cannot protect this window</button>
+      </section>
+      {/* hook6. useFadeIn */}
+      <section>
+        <h2>hook6. useFadeIn</h2>
+        <h3 ref={fadeInEl2scnd.ref} style={fadeInEl2scnd.style}>
+          !FadeIn 2second!
+        </h3>
       </section>
 
       <hr />
