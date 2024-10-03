@@ -1,25 +1,19 @@
 "use client";
 
-type UseConfirm = {
-  confirmAction: VoidFunction | undefined;
-};
+import { MESSAGE } from "@/app/enums/text";
 
 export const useConfirm = (
-  message: string = "",
-  callback: VoidFunction
-): UseConfirm => {
-  if (typeof callback !== "function") {
-    return {
-      confirmAction: undefined,
-    };
-  }
+  message: string = MESSAGE.Default,
+  onConfirm: VoidFunction,
+  onCancel?: VoidFunction
+): VoidFunction => {
   const confirmAction = () => {
     if (confirm(message)) {
-      callback();
+      onConfirm();
+    } else {
+      onCancel?.();
     }
   };
 
-  return {
-    confirmAction,
-  };
+  return confirmAction;
 };

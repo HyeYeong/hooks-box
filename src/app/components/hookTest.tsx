@@ -5,6 +5,7 @@ import { useClick } from "@/app/hooks/useClick";
 import { useGithubRepos } from "@/app/hooks/useGetGithubRepos";
 import { SyncLoader } from "react-spinners";
 import { useConfirm } from "@/app/hooks/useConfirm";
+import { MESSAGE } from "@/app/enums/text";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -19,9 +20,13 @@ export const HookTest = () => {
   const tabHook = useTabs(0, contents);
   const sayHello = () => console.log("sayhello");
   const { element } = useClick(sayHello);
-  const { confirmAction } = useConfirm("are you sure?", () =>
-    console.log("deleted!!")
-  );
+  const confirmFunc = () => {
+    console.log(MESSAGE.Confirm);
+  };
+  const abortFunc = () => {
+    console.log(MESSAGE.Cancel);
+  };
+  const confirmAction = useConfirm(MESSAGE.Question, confirmFunc, abortFunc);
 
   if (loading)
     return (
