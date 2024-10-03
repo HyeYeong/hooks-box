@@ -6,6 +6,7 @@ import { useGithubRepos } from "@/app/hooks/useGetGithubRepos";
 import { SyncLoader } from "react-spinners";
 import { useConfirm } from "@/app/hooks/useConfirm";
 import { MESSAGE } from "@/app/enums/text";
+import { usePreventLeave } from "@/app/hooks/usePreventLeave";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -20,6 +21,7 @@ export const HookTest = () => {
   const tabHook = useTabs(0, contents);
   const sayHello = () => console.log("sayhello");
   const { element } = useClick(sayHello);
+  const { enablePrevent, disablePrevent } = usePreventLeave();
   const confirmFunc = () => {
     console.log(MESSAGE.Confirm);
   };
@@ -97,6 +99,13 @@ export const HookTest = () => {
         <button onClick={confirmAction}>
           delete the world?(show you only text)
         </button>
+      </section>
+      {/* hook5. usePreventLeave */}
+      <section>
+        <h2>hook5. usePreventLeave</h2>
+        <p>If you click this button↓</p>
+        <button onClick={enablePrevent}>you can protect this window</button>
+        <button onClick={disablePrevent}>you cannot protect this window</button>
       </section>
 
       <hr />
