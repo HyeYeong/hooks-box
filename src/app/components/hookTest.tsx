@@ -7,6 +7,7 @@ import { SyncLoader } from "react-spinners";
 import { useConfirm } from "@/app/hooks/useConfirm";
 import { MESSAGE } from "@/app/enums/text";
 import { usePreventLeave } from "@/app/hooks/usePreventLeave";
+import { useBeforeLeave } from "@/app/hooks/useBeforeLeave";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -29,6 +30,8 @@ export const HookTest = () => {
     console.log(MESSAGE.Cancel);
   };
   const confirmAction = useConfirm(MESSAGE.Question, confirmFunc, abortFunc);
+
+  // useBeforeLeave(() => {});
 
   if (loading)
     return (
