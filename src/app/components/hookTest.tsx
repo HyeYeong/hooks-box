@@ -12,6 +12,7 @@ import { useFadeIn } from "@/app/hooks/useFadeIn";
 import { useNetwork } from "@/app/hooks/useNetwork";
 import { useScroll } from "@/app/hooks/useScroll";
 import { useFullscreen } from "@/app/hooks/useFullscreen";
+import { useNotification } from "@/app/hooks/useNotification";
 import Image from "next/image";
 
 export const HookTest = () => {
@@ -41,6 +42,9 @@ export const HookTest = () => {
   };
   const { netWorkStatus } = useNetwork(networkStatueEvent);
   const { scrollState } = useScroll();
+  const fireNotification = useNotification("This is test notification!", {
+    body: "notification body",
+  });
   const { fullScreenEl, triggerFullScreen, exitScreen } = useFullscreen();
 
   // useBeforeLeave(() => {});
@@ -155,6 +159,14 @@ export const HookTest = () => {
             alt="example picture"
           />
         </div>
+      </section>
+      {/* hook8. useNotification */}
+      <section>
+        <h2>hook8. useNotification</h2>
+        <p>
+          ※ブラウザの設定やパソコンのNotificationの設定の影響でアラートが見えない場合があります
+        </p>
+        <button onClick={fireNotification}>Show Notification</button>
       </section>
 
       <hr />
