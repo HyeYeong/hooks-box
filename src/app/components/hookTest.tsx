@@ -10,6 +10,7 @@ import { usePreventLeave } from "@/app/hooks/usePreventLeave";
 import { useBeforeLeave } from "@/app/hooks/useBeforeLeave";
 import { useFadeIn } from "@/app/hooks/useFadeIn";
 import { useNetwork } from "@/app/hooks/useNetwork";
+import { useScroll } from "@/app/hooks/useScroll";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -37,6 +38,7 @@ export const HookTest = () => {
     console.log(online ? "Online" : "Offline");
   };
   const { netWorkStatus } = useNetwork(networkStatueEvent);
+  const { scrollState } = useScroll();
 
   // useBeforeLeave(() => {});
 
@@ -50,8 +52,10 @@ export const HookTest = () => {
 
   return (
     <main>
-      <section>
-        <span className={`c-network-label ${!netWorkStatus && "bg-danger"}`}>
+      <section className={`${scrollState.y > 30 ? "is-fixed" : ""}`}>
+        <span
+          className={`c-network-label ${!netWorkStatus ? "bg-danger" : ""}`}
+        >
           {netWorkStatus ? "Online" : "Offline"}
         </span>
       </section>

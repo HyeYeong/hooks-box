@@ -78,3 +78,13 @@ button:hover {
 .bg-danger {
   color: red;
 }
+
+.is-fixed {
+  position: relative;
+  padding: 10px;
+  > * {
+    position: fixed;
+    top: 10px;
+    left: 16px;
+  }
+}
