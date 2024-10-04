@@ -11,6 +11,8 @@ import { useBeforeLeave } from "@/app/hooks/useBeforeLeave";
 import { useFadeIn } from "@/app/hooks/useFadeIn";
 import { useNetwork } from "@/app/hooks/useNetwork";
 import { useScroll } from "@/app/hooks/useScroll";
+import { useFullscreen } from "@/app/hooks/useFullscreen";
+import Image from "next/image";
 
 export const HookTest = () => {
   const maxLength = (value: string | number) => value.toString().length <= 10;
@@ -39,6 +41,7 @@ export const HookTest = () => {
   };
   const { netWorkStatus } = useNetwork(networkStatueEvent);
   const { scrollState } = useScroll();
+  const { fullScreenEl, triggerFullScreen, exitScreen } = useFullscreen();
 
   // useBeforeLeave(() => {});
 
@@ -64,8 +67,12 @@ export const HookTest = () => {
         {loginData && (
           <ul>
             <li className="profile-img">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={loginData.user.avatar_url || ""} alt="avatar_url" />
+              <Image
+                src={loginData.user.avatar_url || ""}
+                width={100}
+                height={100}
+                alt="avatar_url"
+              />
             </li>
             <li>NAME: {loginData.user.name}</li>
             <li>LOCATION: {loginData.user.location}</li>
@@ -132,6 +139,22 @@ export const HookTest = () => {
         <h3 ref={fadeInEl2scnd.ref} style={fadeInEl2scnd.style}>
           !FadeIn 2second!
         </h3>
+      </section>
+      {/* hook7. useFullscreen */}
+      <section>
+        <h2>hook7. useFullscreen</h2>
+        <button onClick={triggerFullScreen}>FULL SCREEN BUTTON</button>
+        <div ref={fullScreenEl}>
+          <button onClick={exitScreen}>EXIT FULL SCREEN BUTTON</button>
+          <Image
+            src={
+              "https://images.pexels.com/photos/276267/pexels-photo-276267.jpeg"
+            }
+            width={400}
+            height={300}
+            alt="example picture"
+          />
+        </div>
       </section>
 
       <hr />
