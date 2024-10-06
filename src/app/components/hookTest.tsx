@@ -8,6 +8,7 @@ import { useConfirm } from "@/app/hooks/useConfirm";
 import { MESSAGE } from "@/app/enums/text";
 import { usePreventLeave } from "@/app/hooks/usePreventLeave";
 import { useBeforeLeave } from "@/app/hooks/useBeforeLeave";
+import { useAxios } from "@/app/hooks/useAxios";
 import { useFadeIn } from "@/app/hooks/useFadeIn";
 import { useNetwork } from "@/app/hooks/useNetwork";
 import { useScroll } from "@/app/hooks/useScroll";
@@ -40,6 +41,15 @@ export const HookTest = () => {
   const networkStatueEvent = (online: boolean) => {
     console.log(online ? "Online" : "Offline");
   };
+  const API_URL_SAMPLE =
+    "https://api.allorigins.win/get?url=" +
+    encodeURIComponent("https://yts.am/api/v2/list_movies.json");
+
+  const {
+    loading: isLoading,
+    data: movieData,
+    refetch,
+  } = useAxios({ url: API_URL_SAMPLE });
   const { netWorkStatus } = useNetwork(networkStatueEvent);
   const { scrollState } = useScroll();
   const fireNotification = useNotification("This is test notification!", {
@@ -167,6 +177,14 @@ export const HookTest = () => {
           ※ブラウザの設定やパソコンのNotificationの設定の影響でアラートが見えない場合があります
         </p>
         <button onClick={fireNotification}>Show Notification</button>
+      </section>
+      {/* hook9. useAxios */}
+      <section>
+        <h2>hook9. useAxios</h2>
+        <p>movie list</p>
+        <p>{movieData && movieData.status}</p>
+        <p>{isLoading && "Loading..."}</p>
+        <button onClick={refetch}>Get new movie list</button>
       </section>
 
       <hr />
