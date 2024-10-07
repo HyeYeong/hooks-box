@@ -1,23 +1,6 @@
 import { useState, useEffect } from "react";
 import client from "@/app/api/graphqlClient";
-
-const query = `
-  query findRepos($login: String!) {
-    user(login: $login) {
-      login
-      name
-      location
-      avatar_url: avatarUrl
-      repositories(first: 100) {
-        totalCount
-        nodes {
-          name
-        }
-      }
-    }
-  }
-`;
-
+import { repositoriesInfo } from "@/app/hooks/queries/repositoriesInfo";
 interface RepoData {
   user: {
     login: string;
@@ -39,7 +22,9 @@ export const useGithubRepos = (login: string) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await client.request<RepoData>(query, { login });
+        const result = await client.request<RepoData>(repositoriesInfo, {
+          login,
+        });
         setLoginData(result);
       } catch (err) {
         setError(err as Error);
